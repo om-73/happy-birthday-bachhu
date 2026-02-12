@@ -5,7 +5,7 @@ import { HeartHandshake } from 'lucide-react';
 const Logo = () => {
     return (
         <motion.div
-            className="fixed top-6 left-6 z-50 flex items-center gap-2 cursor-pointer mix-blend-difference"
+            className="fixed top-6 left-6 z-[60] flex items-center gap-2 cursor-pointer mix-blend-difference"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.5 }}

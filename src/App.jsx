@@ -35,52 +35,53 @@ function App() {
     setShowForever(true);
   };
 
-  // If waiting for 12 AM
-  if (loading) {
-    return <Countdown onComplete={() => setLoading(false)} />;
-  }
-
   return (
     <div className="font-body text-gray-900 overflow-x-hidden transition-colors duration-1000">
       <MusicPlayer />
       <FloatingHearts />
       {!showForever && <Logo />}
 
-      {!showForever && (
-        <main className="relative z-10 pb-20">
-          <Hero onStart={handleStartStory} />
+      {loading ? (
+        <Countdown onComplete={() => setLoading(false)} />
+      ) : (
+        <>
+          {!showForever && (
+            <main className="relative z-10 pb-20">
+              <Hero onStart={handleStartStory} />
 
-          <AnimatePresence>
-            {showStory && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1 }}
-              >
-                <div id="first-meeting"><FirstMeeting /></div>
-                <PuneDistance />
-                <Breakup />
-                <PatchUp />
-                <Engineering />
-                <MoveBaner />
-                <HappiestTime />
-                <BangaloreStory />
-                <BirthdayWish />
-                <FinalReveal onComplete={handleEndStory} />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </main>
-      )}
+              <AnimatePresence>
+                {showStory && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 1 }}
+                  >
+                    <div id="first-meeting"><FirstMeeting /></div>
+                    <PuneDistance />
+                    <Breakup />
+                    <PatchUp />
+                    <Engineering />
+                    <MoveBaner />
+                    <HappiestTime />
+                    <BangaloreStory />
+                    <BirthdayWish />
+                    <FinalReveal onComplete={handleEndStory} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </main>
+          )}
 
-      {showForever && (
-        <ForeverMoment />
-      )}
+          {showForever && (
+            <ForeverMoment />
+          )}
 
-      {!showForever && (
-        <footer className="bg-rose-900 text-rose-200 py-8 text-center relative z-10">
-          <p className="opacity-70 text-sm">Made with ❤️ for Mera Bachhu</p>
-        </footer>
+          {!showForever && (
+            <footer className="bg-rose-900 text-rose-200 py-8 text-center relative z-10">
+              <p className="opacity-70 text-sm">Made with ❤️ for Mera Bachhu</p>
+            </footer>
+          )}
+        </>
       )}
     </div>
   );
