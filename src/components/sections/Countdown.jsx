@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 const Countdown = ({ onComplete }) => {
-    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+    // Use useRef to store the target end time, so it's initialized only once on mount
+    const targetEndTimeRef = useRef(null);
 
-    function calculateTimeLeft() {
-        // Target: Next 12:00 AM IST
-        const now = new Date();
+    // Initialize timeLeft with a calculation that sets the target time
+    const [timeLeft, setTimeLeft] = useState(() => {
+        const now = Date.now();
+        targetEndTimeRef.current = now + 10 * 1000; // 10 seconds from now
+        return calculateTimeLeft(targetEndTimeRef.current);
+    });
 
-        // Convert current time to IST
-        const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-        const istOffset = 5.5 * 60 * 60 * 1000;
-        const istNow = new Date(utc + istOffset);
-
-        const target = new Date(istNow);
-        target.setHours(24, 0, 0, 0); // Set to next midnight (12:00 AM)
-
-        const difference = target - istNow;
+    function calculateTimeLeft(targetTime) {
+        const now = Date.now();
+        const difference = targetTime - now;
 
         if (difference <= 0) {
             return { hours: 0, minutes: 0, seconds: 0, completed: true };
@@ -32,7 +31,8 @@ const Countdown = ({ onComplete }) => {
 
     useEffect(() => {
         const timer = setInterval(() => {
-            const remaining = calculateTimeLeft();
+            // Pass the consistent targetEndTimeRef.current to calculateTimeLeft
+            const remaining = calculateTimeLeft(targetEndTimeRef.current);
             setTimeLeft(remaining);
 
             if (remaining.completed) {
@@ -63,7 +63,7 @@ const Countdown = ({ onComplete }) => {
                 </div>
 
                 <p className="mt-8 text-slate-400 animate-pulse">
-                    
+
                 </p>
             </motion.div>
         </div>
