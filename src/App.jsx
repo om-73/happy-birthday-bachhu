@@ -14,6 +14,7 @@ import BangaloreStory from './components/sections/BangaloreStory';
 import BirthdayWish from './components/sections/BirthdayWish';
 import FinalReveal from './components/sections/FinalReveal';
 import ForeverMoment from './components/sections/ForeverMoment';
+import Logo from './components/ui/Logo';
 
 import Countdown from './components/sections/Countdown';
 
@@ -43,6 +44,7 @@ function App() {
     <div className="font-body text-gray-900 overflow-x-hidden transition-colors duration-1000">
       <MusicPlayer />
       <FloatingHearts />
+      {!showForever && <Logo />}
 
       {!showForever && (
         <main className="relative z-10 pb-20">
