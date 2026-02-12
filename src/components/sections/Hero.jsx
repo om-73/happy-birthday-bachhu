@@ -21,7 +21,10 @@ const Typewriter = ({ text, delay = 50 }) => {
 
 const Hero = ({ onStart }) => {
     return (
-        <Section className="bg-gradient-to-br from-purple-900 via-rose-800 to-purple-900 text-white relative overflow-hidden">
+        <Section
+            className="bg-gradient-to-br from-purple-900 via-rose-800 to-purple-900 text-white relative overflow-hidden"
+            animate={{ opacity: 1, y: 0 }} // Force immediate animation for Hero
+        >
             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-30 animate-pulse"></div>
 
             {/* Soft Sparkle Particles */}

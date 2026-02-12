@@ -7,7 +7,7 @@ export function cn(...inputs) {
     return twMerge(clsx(inputs));
 }
 
-const Section = ({ children, className, id }) => {
+const Section = ({ children, className, id, ...props }) => {
     return (
         <motion.section
             id={id}
@@ -16,6 +16,7 @@ const Section = ({ children, className, id }) => {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             className={cn("min-h-screen flex flex-col items-center justify-center p-6 relative overflow-hidden", className)}
+            {...props}
         >
             {children}
         </motion.section>
