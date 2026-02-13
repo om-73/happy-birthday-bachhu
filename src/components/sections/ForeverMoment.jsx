@@ -1,9 +1,11 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Infinity as InfinityIcon } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Infinity as InfinityIcon, X } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import coupleImage from '../../assets/couple.jpeg';
 
 const ForeverMoment = () => {
+    const [showImage, setShowImage] = useState(false);
 
     React.useEffect(() => {
         const duration = 5 * 1000;
@@ -57,12 +59,53 @@ const ForeverMoment = () => {
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 2.5, duration: 1 }}
-                className="p-6 border-2 border-rose-300 rounded-lg"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setShowImage(true)}
+                className="p-6 border-2 border-rose-300 rounded-lg cursor-pointer hover:bg-rose-50 transition-colors shadow-lg"
             >
                 <p className="text-xl font-bold text-rose-700 tracking-widest uppercase">
                     Always Yours ❤️
                 </p>
+                <p className="text-xs text-rose-400 mt-2 italic">(Click for a surprise)</p>
             </motion.div>
+
+            <AnimatePresence>
+                {showImage && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[70] bg-black/90 flex items-center justify-center p-4 backdrop-blur-sm"
+                        onClick={() => setShowImage(false)}
+                    >
+                        <motion.div
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.8, opacity: 0 }}
+                            className="relative max-w-2xl w-full"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <button
+                                onClick={() => setShowImage(false)}
+                                className="absolute -top-12 right-0 text-white hover:text-rose-300 transition-colors"
+                            >
+                                <X size={32} />
+                            </button>
+                            <div className="bg-white p-2 rounded-2xl shadow-2xl">
+                                <img
+                                    src={coupleImage}
+                                    alt="Us"
+                                    className="w-full h-auto rounded-xl shadow-inner"
+                                />
+                                <p className="text-center py-4 text-rose-800 font-display text-xl">
+                                    Forever & Always ✨
+                                </p>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 };
