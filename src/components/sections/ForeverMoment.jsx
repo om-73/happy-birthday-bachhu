@@ -83,7 +83,7 @@ const ForeverMoment = () => {
                         <svg width="0" height="0" className="absolute">
                             <defs>
                                 <clipPath id="heartPath" clipPathUnits="objectBoundingBox">
-                                    <path d="M0.5,0.16 C0.45,0.05 0.35,0 0.25,0 C0.1,0 0,0.12 0,0.28 C0,0.45 0.15,0.62 0.5,0.9 C0.85,0.62 1,0.45 1,0.28 C1,0.12 0.9,0 0.75,0 C0.65,0 0.55,0.05 0.5,0.16" />
+                                    <path d="M0.5,0.05 C0.45,0.02 0.35,0 0.25,0 C0.1,0 0,0.12 0,0.28 C0,0.45 0.15,0.62 0.5,0.9 C0.85,0.62 1,0.45 1,0.28 C1,0.12 0.9,0 0.75,0 C0.65,0 0.55,0.02 0.5,0.05" />
                                 </clipPath>
                             </defs>
                         </svg>
@@ -133,7 +133,7 @@ const ForeverMoment = () => {
                                     <img
                                         src={coupleImage}
                                         alt="Us"
-                                        className="relative w-full h-full object-contain z-10 p-2"
+                                        className="relative w-full h-full object-contain z-10 p-2 translate-y-4"
                                     />
                                 </div>
 
