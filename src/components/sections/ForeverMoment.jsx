@@ -6,6 +6,19 @@ import coupleImage from '../../assets/couple.jpeg';
 
 const ForeverMoment = () => {
     const [showImage, setShowImage] = useState(false);
+    const [showLoveQuestion, setShowLoveQuestion] = useState(false);
+    const [showSayari, setShowSayari] = useState(false);
+    const [noBtnPos, setNoBtnPos] = useState({ x: 0, y: 0 });
+
+    const handleCloseImage = () => {
+        setShowLoveQuestion(true);
+    };
+
+    const moveNoButton = () => {
+        const x = Math.random() * 200 - 100;
+        const y = Math.random() * 200 - 100;
+        setNoBtnPos({ x, y });
+    };
 
     React.useEffect(() => {
         const duration = 5 * 1000;
@@ -71,13 +84,13 @@ const ForeverMoment = () => {
             </motion.div>
 
             <AnimatePresence>
-                {showImage && (
+                {showImage && !showLoveQuestion && !showSayari && (
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         className="fixed inset-0 z-[70] bg-black/95 flex items-center justify-center p-4 backdrop-blur-md"
-                        onClick={() => setShowImage(false)}
+                        onClick={handleCloseImage}
                     >
                         {/* Define SVG Clip Path */}
                         <svg width="0" height="0" className="absolute">
@@ -107,7 +120,7 @@ const ForeverMoment = () => {
                             />
 
                             <button
-                                onClick={() => setShowImage(false)}
+                                onClick={handleCloseImage}
                                 className="absolute -top-12 right-0 text-white hover:text-rose-300 transition-colors z-10 p-2"
                             >
                                 <X size={28} />
@@ -121,7 +134,7 @@ const ForeverMoment = () => {
                                 >
                                     {/* Blurred Background */}
                                     <div
-                                        className="absolute inset-0 scale-110 blur-md opacity-50"
+                                        className="absolute inset-0 scale-110 blur-xl opacity-40"
                                         style={{
                                             backgroundImage: `url(${coupleImage})`,
                                             backgroundSize: 'cover',
@@ -157,6 +170,82 @@ const ForeverMoment = () => {
                                     My Everything
                                 </p>
                             </motion.div>
+                        </motion.div>
+                    </motion.div>
+                )}
+
+                {/* Love Question Overlay */}
+                {showLoveQuestion && !showSayari && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="fixed inset-0 z-[80] bg-rose-950/90 flex items-center justify-center p-4 backdrop-blur-lg"
+                    >
+                        <motion.div
+                            initial={{ scale: 0.8 }}
+                            animate={{ scale: 1 }}
+                            className="bg-white p-8 rounded-3xl shadow-2xl text-center max-w-sm w-full"
+                        >
+                            <h2 className="text-3xl font-display text-rose-900 mb-8">Do you love me? ❤️</h2>
+                            <div className="flex justify-center gap-6 relative h-20 items-center">
+                                <motion.button
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.9 }}
+                                    onClick={() => setShowSayari(true)}
+                                    className="px-8 py-3 bg-rose-600 text-white rounded-full font-bold shadow-lg hover:bg-rose-700 transition-colors"
+                                >
+                                    Yes
+                                </motion.button>
+
+                                <motion.button
+                                    animate={{ x: noBtnPos.x, y: noBtnPos.y }}
+                                    onHoverStart={moveNoButton}
+                                    className="px-8 py-3 bg-slate-200 text-slate-600 rounded-full font-bold shadow-md cursor-default"
+                                >
+                                    No
+                                </motion.button>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+
+                {/* Sayari Reveal Overlay */}
+                {showSayari && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="fixed inset-0 z-[90] bg-gradient-to-b from-rose-900 to-black flex items-center justify-center p-6 text-center"
+                    >
+                        <motion.div
+                            initial={{ y: 50, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ duration: 0.8 }}
+                            className="max-w-xl"
+                        >
+                            <div className="text-rose-400 mb-8 flex justify-center">
+                                <InfinityIcon size={64} className="animate-pulse" />
+                            </div>
+
+                            <p className="text-2xl md:text-3xl text-rose-100 font-display italic leading-relaxed mb-12">
+                                "Tujhe dekha toh yeh jaana sanam,<br />
+                                Pyaar hota hai deewana sanam...<br /><br />
+                                Par teri dosti ne sikhaya hai humein,<br />
+                                Ke har lamha hai, tere bina veeraana sanam."
+                            </p>
+
+                            <motion.button
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 2 }}
+                                onClick={() => {
+                                    setShowImage(false);
+                                    setShowLoveQuestion(false);
+                                    setShowSayari(false);
+                                }}
+                                className="px-12 py-4 border-2 border-rose-500 text-rose-500 rounded-full hover:bg-rose-500 hover:text-white transition-all font-bold tracking-widest uppercase"
+                            >
+                                Close with Love ❤️
+                            </motion.button>
                         </motion.div>
                     </motion.div>
                 )}
