@@ -83,20 +83,20 @@ const ForeverMoment = () => {
                             initial={{ scale: 0.8, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.8, opacity: 0 }}
-                            className="relative max-w-2xl w-full"
+                            className="relative max-w-[90vw] max-h-[90vh] flex flex-col items-center justify-center"
                             onClick={(e) => e.stopPropagation()}
                         >
                             <button
                                 onClick={() => setShowImage(false)}
-                                className="absolute -top-12 right-0 text-white hover:text-rose-300 transition-colors"
+                                className="absolute -top-10 right-0 text-white hover:text-rose-300 transition-colors z-10 bg-black/50 p-1 rounded-full"
                             >
-                                <X size={32} />
+                                <X size={24} />
                             </button>
-                            <div className="bg-white p-2 rounded-2xl shadow-2xl">
+                            <div className="bg-white p-2 rounded-2xl shadow-2xl flex flex-col items-center max-h-full overflow-hidden">
                                 <img
                                     src={coupleImage}
                                     alt="Us"
-                                    className="w-full h-auto rounded-xl shadow-inner"
+                                    className="max-h-[70vh] w-auto object-contain rounded-xl shadow-inner"
                                 />
                                 <p className="text-center py-4 text-rose-800 font-display text-xl">
                                     Forever & Always ✨
