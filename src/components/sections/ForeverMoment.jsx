@@ -76,32 +76,76 @@ const ForeverMoment = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[70] bg-black/90 flex items-center justify-center p-4 backdrop-blur-sm"
+                        className="fixed inset-0 z-[70] bg-black/95 flex items-center justify-center p-4 backdrop-blur-md"
                         onClick={() => setShowImage(false)}
                     >
+                        {/* Define SVG Clip Path */}
+                        <svg width="0" height="0" className="absolute">
+                            <defs>
+                                <clipPath id="heartPath" clipPathUnits="objectBoundingBox">
+                                    <path d="M0.5,0.16 C0.45,0.05 0.35,0 0.25,0 C0.1,0 0,0.12 0,0.28 C0,0.45 0.15,0.62 0.5,0.9 C0.85,0.62 1,0.45 1,0.28 C1,0.12 0.9,0 0.75,0 C0.65,0 0.55,0.05 0.5,0.16" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+
                         <motion.div
-                            initial={{ scale: 0.8, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            exit={{ scale: 0.8, opacity: 0 }}
-                            className="relative max-w-[90vw] max-h-[90vh] flex flex-col items-center justify-center"
+                            initial={{ scale: 0, rotate: -15, opacity: 0 }}
+                            animate={{ scale: 1, rotate: 0, opacity: 1 }}
+                            exit={{ scale: 0, rotate: 15, opacity: 0 }}
+                            transition={{ type: "spring", damping: 15 }}
+                            className="relative flex flex-col items-center justify-center"
                             onClick={(e) => e.stopPropagation()}
                         >
+                            {/* Animated Background Glow */}
+                            <motion.div
+                                animate={{
+                                    scale: [1, 1.1, 1],
+                                    opacity: [0.3, 0.6, 0.3]
+                                }}
+                                transition={{ duration: 2, repeat: Infinity }}
+                                className="absolute inset-0 bg-rose-500/30 blur-3xl rounded-full"
+                            />
+
                             <button
                                 onClick={() => setShowImage(false)}
-                                className="absolute -top-10 right-0 text-white hover:text-rose-300 transition-colors z-10 bg-black/50 p-1 rounded-full"
+                                className="absolute -top-12 right-0 text-white hover:text-rose-300 transition-colors z-10 p-2"
                             >
-                                <X size={24} />
+                                <X size={28} />
                             </button>
-                            <div className="bg-white p-2 rounded-2xl shadow-2xl flex flex-col items-center max-h-full overflow-hidden">
-                                <img
-                                    src={coupleImage}
-                                    alt="Us"
-                                    className="max-h-[70vh] w-auto object-contain rounded-xl shadow-inner"
+
+                            <div className="relative group">
+                                {/* The Heart Image Container */}
+                                <div
+                                    className="w-[85vw] h-[85vw] max-w-[450px] max-h-[450px] bg-white p-2"
+                                    style={{ clipPath: 'url(#heartPath)' }}
+                                >
+                                    <img
+                                        src={coupleImage}
+                                        alt="Us"
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
+
+                                {/* Inner Border Overlay */}
+                                <div
+                                    className="absolute inset-0 border-4 border-white/50 pointer-events-none"
+                                    style={{ clipPath: 'url(#heartPath)' }}
                                 />
-                                <p className="text-center py-4 text-rose-800 font-display text-xl">
+                            </div>
+
+                            <motion.div
+                                initial={{ y: 20, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                transition={{ delay: 0.5 }}
+                                className="text-center mt-6"
+                            >
+                                <p className="text-rose-200 font-display text-2xl drop-shadow-lg">
                                     Forever & Always ✨
                                 </p>
-                            </div>
+                                <p className="text-rose-400 text-sm mt-1 italic tracking-widest">
+                                    My Everything
+                                </p>
+                            </motion.div>
                         </motion.div>
                     </motion.div>
                 )}
