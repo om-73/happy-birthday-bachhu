@@ -116,19 +116,30 @@ const ForeverMoment = () => {
                             <div className="relative group">
                                 {/* The Heart Image Container */}
                                 <div
-                                    className="w-[85vw] h-[85vw] max-w-[450px] max-h-[450px] bg-white p-2"
+                                    className="w-[85vw] h-[110vw] max-w-[400px] max-h-[500px] bg-white p-1 relative overflow-hidden"
                                     style={{ clipPath: 'url(#heartPath)' }}
                                 >
+                                    {/* Blurred Background */}
+                                    <div
+                                        className="absolute inset-0 scale-110 blur-md opacity-50"
+                                        style={{
+                                            backgroundImage: `url(${coupleImage})`,
+                                            backgroundSize: 'cover',
+                                            backgroundPosition: 'center'
+                                        }}
+                                    />
+
+                                    {/* Full Image in foreground */}
                                     <img
                                         src={coupleImage}
                                         alt="Us"
-                                        className="w-full h-full object-cover"
+                                        className="relative w-full h-full object-contain z-10 p-2"
                                     />
                                 </div>
 
                                 {/* Inner Border Overlay */}
                                 <div
-                                    className="absolute inset-0 border-4 border-white/50 pointer-events-none"
+                                    className="absolute inset-0 border-4 border-white/40 pointer-events-none z-20"
                                     style={{ clipPath: 'url(#heartPath)' }}
                                 />
                             </div>
