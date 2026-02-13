@@ -76,11 +76,7 @@ function App() {
             <ForeverMoment />
           )}
 
-          {!showForever && (
-            <footer className="bg-rose-900 text-rose-200 py-8 text-center relative z-10">
-              <p className="opacity-70 text-sm">Made with ❤️ for Mera Bachhu</p>
-            </footer>
-          )}
+
         </>
       )}
     </div>
